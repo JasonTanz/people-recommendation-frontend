@@ -1,0 +1,16 @@
+:root {
+    background-color: rgb(255, 255, 255);
+}
+
+.swiper {
+    width: 20rem;
+    height: 30rem;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
