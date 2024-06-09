@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../components/UserLayout";
 import { RecommendedUser } from "../@types/commmon";
+import { isEmpty } from "lodash";
 
 /**
  * ===========================
@@ -41,12 +42,21 @@ export const UserScreen: React.FC = () => {
                 Authorization: `Bearer ${token}`,
             },
         },
-        onCompleted: (data) => {
-            console.log("data", data);
+        onCompleted: (res) => {
+            const data = res.data;
+            const isNewResult = data.newResult;
+            if (isEmpty(data.data)) {
+                return toast("You've reached the end of the recommendation");
+            }
+            if (isNewResult) {
+                return toast.success("New recommendations are available!");
+            }
+            return toast.error(
+                "Daily recommendation limit exceeded. Please come back again tomorrow"
+            );
         },
         onError: (err) => {
-            console.log("here----------", err);
-            toast.error(err.error);
+            toast.error(err.message);
         },
     });
 
@@ -63,9 +73,8 @@ export const UserScreen: React.FC = () => {
     };
 
     // =============== VARIABLES
-    console.log(data);
     const recommendation = data?.data?.sort(
-        (a: any, b: any) => a.priority - b.priority
+        (a: RecommendedUser, b: RecommendedUser) => a.priority - b.priority
     );
 
     // =============== RENDER FUNCTIONS
@@ -132,6 +141,10 @@ export const UserScreen: React.FC = () => {
                     md: 0,
                 }}
                 width="100%"
+                marginBottom={{
+                    xs: 5,
+                    lg: 0,
+                }}
             >
                 <Stack direction="column" gap={3}>
                     <Typography variant="h5" fontWeight={"bold"}>
@@ -142,9 +155,13 @@ export const UserScreen: React.FC = () => {
                 <Stack
                     direction={"column"}
                     gap={3}
+                    paddingTop={{
+                        sm: 5,
+                        lg: 0,
+                    }}
                     width={{
-                        sm: "fit-content",
-                        md: "35%",
+                        sm: "50%",
+                        lg: "35%",
                     }}
                 >
                     {renderProfile()}

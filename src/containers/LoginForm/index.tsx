@@ -9,6 +9,8 @@ import { Button } from "../../components/Button";
 import { useDispatch } from "react-redux";
 import { LOGIN } from "../../reducers/authSlice";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { yupSchema } from "./validation";
 
 /**
  * ===========================
@@ -28,6 +30,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
             name: "",
             password: "",
         },
+        resolver: yupResolver(yupSchema),
     });
 
     // =============== API
@@ -44,7 +47,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
             return navigate("/user", { replace: true });
         },
         onError: (err) => {
-            toast.error(err);
+            toast.error(err.message);
         },
     });
 

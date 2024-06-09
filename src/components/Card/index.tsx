@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { CardProps } from "./props";
 import UserLayout from "../UserLayout";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 /**
  * ===========================
@@ -22,7 +23,13 @@ export const Card: React.FC<CardProps> = (props) => {
             height="100%"
             padding="2rem"
             justifyContent={"center"}
+            alignItems={"center"}
+            textAlign={"center"}
         >
+            <CheckCircleIcon
+                color="success"
+                sx={{ width: 40, height: 40, mb: 2 }}
+            />
             <Typography>
                 You've reached the end of the recommendation
             </Typography>

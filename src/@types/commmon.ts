@@ -27,5 +27,5 @@ export type RecommendedUser = {
     university: University;
     gender: Gender;
     location: string;
-    priority?: number;
+    priority: number;
 };

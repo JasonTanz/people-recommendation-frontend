@@ -5,6 +5,7 @@
 .swiper {
     width: 20rem;
     height: 30rem;
+    border-radius: 1.25rem;
 }
 
 .swiper-slide {

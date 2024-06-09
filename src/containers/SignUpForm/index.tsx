@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGIN } from "../../reducers/authSlice";
 import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { yupSchema } from "./validation";
 
 /**
  * ===========================
@@ -25,6 +27,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = (props) => {
     const { onLoginClick } = props;
 
     const { control, handleSubmit } = useForm<FormValues>({
+        mode: "all",
+        reValidateMode: "onChange",
+        resolver: yupResolver(yupSchema),
         defaultValues: {
             name: "",
             password: "",
@@ -55,7 +60,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = (props) => {
             return navigate("/user", { replace: true });
         },
         onError: (err) => {
-            toast.error(err);
+            toast.error(err.message);
         },
     });
 

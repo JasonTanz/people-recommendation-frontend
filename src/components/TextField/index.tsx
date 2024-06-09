@@ -41,6 +41,11 @@ export const TextField: React.FC<Props> = (props) => {
                 helperText={error ? error.message : null}
                 fullWidth
                 value={value}
+                FormHelperTextProps={{
+                    sx: {
+                        marginLeft: 0,
+                    },
+                }}
             />
         </Stack>
     );

@@ -2,6 +2,8 @@ import { Container, Stack } from "@mui/material";
 import LoginForm from "../containers/LoginForm";
 import { useState } from "react";
 import SignUpForm from "../containers/SignUpForm";
+import store from "../store";
+import { Navigate } from "react-router-dom";
 
 /**
  * ===========================
@@ -9,12 +11,8 @@ import SignUpForm from "../containers/SignUpForm";
  * ===========================
  */
 export const LandingScreen: React.FC = () => {
-    // =============== HOOKS
-
     // =============== STATE
     const [screen, setScreen] = useState<"login" | "signup">("login");
-
-    // =============== API
 
     // =============== EVENTS
     const onHandleChangeScreen = (target: string) => {
@@ -22,6 +20,7 @@ export const LandingScreen: React.FC = () => {
     };
 
     // =============== VARIABLES
+    const authState = store.getState().auth;
     const formScreen = {
         login: (
             <LoginForm onSignUpClick={() => onHandleChangeScreen("signup")} />
@@ -35,6 +34,10 @@ export const LandingScreen: React.FC = () => {
     const renderScreen = () => formScreen[screen];
 
     // =============== VIEWS
+    if (authState.isAuthenticated) {
+        return <Navigate to="/user" />;
+    }
+
     return (
         <Container
             maxWidth="sm"

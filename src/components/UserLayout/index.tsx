@@ -8,7 +8,8 @@ import { UserLayoutProps } from "./props";
 import MaleIcon from "@mui/icons-material/Male";
 
 import FemaleIcon from "@mui/icons-material/Female";
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
+import Ribbons from "../Ribbons";
 /**
  * ===========================
  * MAIN
@@ -40,59 +41,36 @@ export const UserLayout: React.FC<UserLayoutProps> = (props) => {
     // =============== RENDER FUNCTIONS
     const renderBadge = () => {
         if (data?.priority === 1) {
-            return (
-                <Stack
-                    sx={{
-                        position: "absolute",
-                        right: "-97px",
-                        top: "-74px",
-                        width: "100%",
-                        transform: "rotate(45deg)",
-                        backgroundColor: "#ff4133",
-                        color: "white",
-                        padding: "12px",
-                        textAlign: "center",
-                    }}
-                >
-                    <Typography fontWeight={600}>Top Pick</Typography>
-                </Stack>
-            );
+            return <Ribbons label={"Top Pick"} />;
         }
         if (data?.priority === 2) {
-            return (
-                <Stack
-                    sx={{
-                        position: "absolute",
-                        right: "-97px",
-                        top: "-74px",
-                        width: "100%",
-                        transform: "rotate(45deg)",
-                        backgroundColor: "#ff851b",
-                        color: "white",
-                        padding: "12px",
-                        textAlign: "center",
-                    }}
-                >
-                    <Typography fontWeight={600}>Recommended</Typography>
-                </Stack>
-            );
+            return <Ribbons label={"Recommended"} backgroundColor="#ff851b" />;
         }
         return (
-            <Stack
-                sx={{
-                    position: "absolute",
-                    right: "-97px",
-                    top: "-74px",
-                    width: "100%",
-                    transform: "rotate(45deg)",
-                    backgroundColor: "#ffdc00",
-                    color: "black",
-                    padding: "12px",
-                    textAlign: "center",
-                }}
-            >
-                <Typography fontWeight={600}>New</Typography>
-            </Stack>
+            <Ribbons backgroundColor="#ffdc00" color="black" label={"New"} />
+        );
+    };
+
+    const renderInfo = () => {
+        return (
+            <Fragment>
+                <Stack direction="row" gap={1}>
+                    <LocationOnIcon
+                        sx={{
+                            color: "red",
+                        }}
+                    />
+                    <Typography>{data?.location}</Typography>
+                </Stack>
+                <Stack direction="row" gap={1}>
+                    <SchoolIcon />
+                    <Typography>{data?.university}</Typography>
+                </Stack>
+                <Stack direction="row" gap={1}>
+                    <InterestsIcon sx={{ color: "orange" }} />
+                    <Typography>{data?.interests}</Typography>
+                </Stack>
+            </Fragment>
         );
     };
 
@@ -131,22 +109,7 @@ export const UserLayout: React.FC<UserLayoutProps> = (props) => {
                     </Stack>
                 </Stack>
             </Stack>
-            <Stack direction="row" gap={1}>
-                <LocationOnIcon
-                    sx={{
-                        color: "red",
-                    }}
-                />
-                <Typography>{data?.location}</Typography>
-            </Stack>
-            <Stack direction="row" gap={1}>
-                <SchoolIcon />
-                <Typography>{data?.university}</Typography>
-            </Stack>
-            <Stack direction="row" gap={1}>
-                <InterestsIcon sx={{ color: "orange" }} />
-                <Typography>{data?.interests}</Typography>
-            </Stack>
+            {renderInfo()}
             {children}
         </Stack>
     );

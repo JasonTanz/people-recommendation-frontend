@@ -51,6 +51,7 @@ export const Select: React.FC<Props> = (props) => {
             <MUISelect
                 {...restProps}
                 onBlur={onBlur}
+                error={!!error}
                 onChange={onChange}
                 value={value}
                 size="small"
