@@ -25,8 +25,9 @@ export const Swiper: React.FC<SwiperProps> = (props) => {
 
     // =============== RENDER FUNCTIONS
     const renderSwiperSlides = () => {
-        return map(slides, (slide: RecommendedUser) => (
+        return map(slides, (slide: RecommendedUser, index) => (
             <SwiperSlide
+                key={index}
                 style={{
                     background: backgroundColor,
                     borderRadius: "1.25rem",

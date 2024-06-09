@@ -3,7 +3,7 @@ export enum University {
     "TARUMT",
     "SEGi",
     "University Malaya",
-    "Taylor’s University",
+    "Sunway University",
 }
 
 export enum Interests {

@@ -27,8 +27,8 @@ export const universityOptions = [
         value: "University Malaya",
     },
     {
-        label: "Taylor’s University",
-        value: "Taylor’s University",
+        label: "Sunway University",
+        value: "Sunway University",
     },
 ];
 
