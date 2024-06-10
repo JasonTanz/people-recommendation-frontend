@@ -46,8 +46,8 @@ export const VPRoutes = ({
                     logout();
                 }
             })
-            .catch(() => {
-                logout();
+            .catch((err) => {
+                if (err.response.status === 401) return logout();
             });
     });
 
