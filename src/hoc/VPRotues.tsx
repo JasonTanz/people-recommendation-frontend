@@ -4,7 +4,7 @@ import axios from "axios";
 import store from "../store";
 import { useDispatch } from "react-redux";
 import { LOGOUT } from "../reducers/authSlice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface Props {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,8 +23,10 @@ export const VPRoutes = ({
 }: Props) => {
     const authState = store.getState().auth;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const logout = () => {
         dispatch(LOGOUT());
+        return navigate("/", { replace: true });
     };
     useEffect(() => {
         axios
@@ -43,6 +45,9 @@ export const VPRoutes = ({
                 } else {
                     logout();
                 }
+            })
+            .catch(() => {
+                logout();
             });
     });
 
