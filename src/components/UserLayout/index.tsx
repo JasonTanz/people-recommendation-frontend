@@ -10,6 +10,7 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import { Fragment, ReactNode } from "react";
 import Ribbons from "../Ribbons";
+import store from "../../store";
 /**
  * ===========================
  * MAIN
@@ -20,6 +21,7 @@ export const UserLayout: React.FC<UserLayoutProps> = (props) => {
 
     // =============== VARIABLES
     const username = data?.name;
+    const authState = store.getState().auth;
     const background = avatarColor(username || "");
     const genderMap: Record<string, ReactNode> = {
         Male: (
@@ -40,10 +42,13 @@ export const UserLayout: React.FC<UserLayoutProps> = (props) => {
 
     // =============== RENDER FUNCTIONS
     const renderBadge = () => {
-        if (data?.priority === 1) {
+        const owner = authState.user;
+        const sameUniversity = data?.university === owner?.university;
+        const sameInterests = data?.interests === owner?.interests;
+        if (sameUniversity && sameInterests) {
             return <Ribbons label={"Top Pick"} />;
         }
-        if (data?.priority === 2) {
+        if (sameUniversity || sameInterests) {
             return <Ribbons label={"Recommended"} backgroundColor="#ff851b" />;
         }
         return (

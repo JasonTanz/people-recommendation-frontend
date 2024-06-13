@@ -73,9 +73,10 @@ export const UserScreen: React.FC = () => {
     };
 
     // =============== VARIABLES
-    const recommendation = data?.data?.sort(
-        (a: RecommendedUser, b: RecommendedUser) => a.priority - b.priority
-    );
+    // const recommendation = data?.data?.sort(
+    //     (a: RecommendedUser, b: RecommendedUser) => a.priority - b.priority
+    // );
+    const recommendation = data?.data;
 
     // =============== RENDER FUNCTIONS
     const renderSlides = () => {
